@@ -1,0 +1,7 @@
+{
+  "name": "ih-data-binding",
+  "short_name": "ih-data-binding",
+  "description": "Clone of ironhack angular exercise",
+  "start_url": "/",
+  "display": "standalone"
+}

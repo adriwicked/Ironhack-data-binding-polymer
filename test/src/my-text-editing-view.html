@@ -1,0 +1,88 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-text-editing-view">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        --h2-font-size: 16px;
+        --font-style: normal;
+      }
+
+      iron-image {              
+        --iron-image-width: 20px;        
+      }
+
+      h2 {
+        font-size: var(--h2-font-size);
+        font-style: var(--font-style);
+      }
+    </style>
+
+    <div class="card">  
+      <paper-input label="Text editing" value="{{text}}">{{text}}</paper-input><br>
+      <div>Font size: <span class="caption"></span></div><br>
+      <paper-slider id="font-size-slider" snaps pin max="30" max-markers="5" min="20" step="2" value="[[fontSize]]"></paper-slider><br>
+      <paper-toggle-button on-change="_toggleChanged">Cursiva</paper-toggle-button><br><br>
+
+      <h2>[[text]]</h2>
+    </div>
+  </template>
+
+  <script>
+    class TextEditing extends Polymer.Element {
+      static get is() { return 'my-text-editing-view'; }
+      static get properties() {
+        return {
+          text: {
+            type: String,
+            value: 'Test'
+          },
+          fontSize: {
+            type: Number,
+            value: 16
+          },
+          fontStyle: {
+            type: String,
+            value: 'normal',
+            observer(newValue, oldValue){
+              this.updateStyles({ '--font-style': newValue });
+            }
+          },
+        };
+      }
+      
+      ready() {        
+        super.ready();
+        let fontSizeSlider = this.shadowRoot.querySelector('#font-size-slider')
+        fontSizeSlider.addEventListener('immediate-value-change', this._fontSizeImmediateChanged.bind(this));
+        fontSizeSlider.addEventListener('value-change', this._fontSizeImmediateChanged.bind(this));
+      }
+      
+      _fontSizeImmediateChanged(e) {        
+        this.updateStyles({'--h2-font-size': `${e.target.immediateValue}px`});        
+      }
+
+      __fontSizeImmediateChanged(e) {
+        this.updateStyles({'--h2-font-size': `${e.target.value}px`});
+      }
+
+      _toggleChanged(e) {
+        if (e.target.checked) {
+          this.fontStyle = 'italic';
+        }
+        else {
+          this.fontStyle = 'normal';
+        }        
+      }
+    }    
+    
+    window.customElements.define(TextEditing.is, TextEditing);
+  </script>
+</dom-module>

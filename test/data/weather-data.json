@@ -1,0 +1,170 @@
+{ "consolidated_weather": [
+  {
+    "id": 5812211054280704,
+    "weather_state_name": "Clear",
+    "weather_state_abbr": "c",
+    "wind_direction_compass": "S",
+    "created": "2018-08-29T06:10:09.432490Z",
+    "applicable_date": "2018-08-29",
+    "min_temp": 18.4925,
+    "max_temp": 32.452500000000001,
+    "the_temp": 31.539999999999999,
+    "wind_speed": 2.7433913389564939,
+    "wind_direction": 189.32467267416405,
+    "air_pressure": 981.07500000000005,
+    "humidity": 33,
+    "visibility": 14.638262546727113,
+    "predictability": 68
+  },
+  {
+    "id": 5040451493036032,
+    "weather_state_name": "Heavy Cloud",
+    "weather_state_abbr": "hc",
+    "wind_direction_compass": "ENE",
+    "created": "2018-08-29T06:10:12.643130Z",
+    "applicable_date": "2018-08-30",
+    "min_temp": 18.137499999999999,
+    "max_temp": 32.302500000000002,
+    "the_temp": 31.515000000000001,
+    "wind_speed": 3.3038520371072932,
+    "wind_direction": 78.556352170072117,
+    "air_pressure": 988.49000000000001,
+    "humidity": 42,
+    "visibility": 16.490880756382722,
+    "predictability": 71
+  },
+  {
+    "id": 4726574855225344,
+    "weather_state_name": "Light Cloud",
+    "weather_state_abbr": "lc",
+    "wind_direction_compass": "E",
+    "created": "2018-08-29T06:10:15.710410Z",
+    "applicable_date": "2018-08-31",
+    "min_temp": 17.630000000000003,
+    "max_temp": 32.674999999999997,
+    "the_temp": 31.355,
+    "wind_speed": 2.9456464199634134,
+    "wind_direction": 91.126201321959414,
+    "air_pressure": 988.49000000000001,
+    "humidity": 44,
+    "visibility": 15.45474429332697,
+    "predictability": 70
+  },
+  {
+    "id": 5120350476042240,
+    "weather_state_name": "Light Cloud",
+    "weather_state_abbr": "lc",
+    "wind_direction_compass": "ESE",
+    "created": "2018-08-29T06:10:18.710210Z",
+    "applicable_date": "2018-09-01",
+    "min_temp": 18.352499999999999,
+    "max_temp": 33.714999999999996,
+    "the_temp": 32.224999999999994,
+    "wind_speed": 3.2876783472043267,
+    "wind_direction": 106.00000000000001,
+    "air_pressure": 988.07500000000005,
+    "humidity": 39,
+    "visibility": 15.634631253479679,
+    "predictability": 70
+  },
+  {
+    "id": 5651552861683712,
+    "weather_state_name": "Clear",
+    "weather_state_abbr": "c",
+    "wind_direction_compass": "ESE",
+    "created": "2018-08-29T06:08:27.134550Z",
+    "applicable_date": "2018-09-02",
+    "min_temp": 18.5425,
+    "max_temp": 33.814999999999998,
+    "the_temp": 32.945,
+    "wind_speed": 3.3409368818857872,
+    "wind_direction": 122.21045064289066,
+    "air_pressure": 981.77999999999997,
+    "humidity": 40,
+    "visibility": 15.776925256502027,
+    "predictability": 68
+  },
+  {
+    "id": 5463161075400704,
+    "weather_state_name": "Clear",
+    "weather_state_abbr": "c",
+    "wind_direction_compass": "SSE",
+    "created": "2018-08-29T06:10:21.707500Z",
+    "applicable_date": "2018-09-03",
+    "min_temp": 18.855,
+    "max_temp": 32.997500000000002,
+    "the_temp": 31.620000000000001,
+    "wind_speed": 5.5798496778811737,
+    "wind_direction": 158.23847450369368,
+    "air_pressure": 947.14999999999998,
+    "humidity": 36,
+    "visibility": 9.9978624830987037,
+    "predictability": 68
+  }
+],
+"time": "2018-08-29T08:18:14.624250+02:00",
+"sun_rise": "2018-08-29T07:39:03.850652+02:00",
+"sun_set": "2018-08-29T20:51:45.746356+02:00",
+"timezone_name": "LMT",
+"parent": {
+  "title": "Spain",
+  "location_type": "Country",
+  "woeid": 23424950,
+  "latt_long": "39.894890, - 2.988310"
+},
+"sources": [
+  {
+    "title": "BBC",
+    "slug": "bbc",
+    "url": "http://www.bbc.co.uk/weather/",
+    "crawl_rate": 180
+  },
+  {
+    "title": "Forecast.io",
+    "slug": "forecast-io",
+    "url": "http://forecast.io/",
+    "crawl_rate": 480
+  },
+  {
+    "title": "HAMweather",
+    "slug": "hamweather",
+    "url": "http://www.hamweather.com/",
+    "crawl_rate": 360
+  },
+  {
+    "title": "Met Office",
+    "slug": "met-office",
+    "url": "http://www.metoffice.gov.uk/",
+    "crawl_rate": 180
+  },
+  {
+    "title": "OpenWeatherMap",
+    "slug": "openweathermap",
+    "url": "http://openweathermap.org/",
+    "crawl_rate": 360
+  },
+  {
+    "title": "Weather Underground",
+    "slug": "wunderground",
+    "url": "https://www.wunderground.com/?apiref=fc30dc3cd224e19b",
+    "crawl_rate": 720
+  },
+  {
+    "title": "World Weather Online",
+    "slug": "world-weather-online",
+    "url": "http://www.worldweatheronline.com/",
+    "crawl_rate": 360
+  },
+  {
+    "title": "Yahoo",
+    "slug": "yahoo",
+    "url": "http://weather.yahoo.com/",
+    "crawl_rate": 180
+  }
+],
+"title": "Madrid",
+"location_type": "City",
+"woeid": 766273,
+"latt_long": "40.420300, -3.705770",
+"timezone": "Europe/Madrid"
+}

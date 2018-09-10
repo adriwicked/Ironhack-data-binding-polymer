@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+  <title>text-editing</title>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+  <script src="../bower_components/test-fixture/test-fixture-mocha.js"></script>
+
+  <!-- Import the element to test -->
+  <link rel="import" href="../src/my-text-editing-view.html">
+</head>
+
+<body>
+  <test-fixture id="Text editing">
+    <template>
+      <text-editing></text-editing>
+    </template>
+  </test-fixture>
+
+  <script>
+    describe('<text-editing>', function () {
+      context('1 should be 1', function () {
+        it('should display the command buttons', function () {
+          expect(1).to.be.equal(1);          
+        });
+        it('false should be false', function () {
+          expect(false).to.be.equal(false);          
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

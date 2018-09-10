@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="./ih-food-list.html">
+
+<dom-module id="ih-data-binding-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>    
+    <ih-food-list></ih-food-list>    
+  </template>
+
+  <script>    
+    class IhDataBindingApp extends Polymer.Element {
+      static get is() { return 'ih-data-binding-app'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'ih-data-binding-app'
+          }
+        };
+      }      
+    }    
+
+    window.customElements.define(IhDataBindingApp.is, IhDataBindingApp);
+  </script>
+</dom-module>

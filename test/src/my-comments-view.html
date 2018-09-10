@@ -1,0 +1,67 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="./my-comment.html">
+<link rel="import" href="./shared-styles.html">
+
+<dom-module id="my-comments-view">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+    </style>
+
+    <iron-ajax
+      url="https://jsonplaceholder.typicode.com/posts/1/comments"
+      handle-as="json"
+      on-response="_handleResponse"></iron-ajax>
+
+    <button id="refresh">Refresh comments</button>
+
+    <div id="comments-container">
+      <template is="dom-repeat" items="[[comments]]" as="comment">
+        <my-comment comment="[[comment]]"></my-comment>        
+      </template>
+    </div>
+  </template>
+
+  <script>
+    class Comments extends Polymer.Element {
+      static get is() { return 'my-comments-view'; }      
+      
+      ready() {
+        super.ready();
+
+        console.time('performancePrueba');
+        Polymer.RenderStatus.afterNextRender(this, function() {
+          this.addEventListener("custom-click", this._deleteButtonPressed, true);
+
+          this.shadowRoot.querySelector('#refresh')
+            .addEventListener('click', this._newRequest.bind(this));            
+          
+          console.timeEnd('performancePrueba');
+        });
+
+        this._newRequest();
+      }
+
+      _newRequest() {
+        this.shadowRoot.querySelector('iron-ajax')
+          .generateRequest().completes
+            .then(req => console.log("Request completed - ", req))
+            .catch(err => console.error("Request error - ", err));
+      }
+
+      _deleteButtonPressed(e) {
+        let idx = this.comments.indexOf(e.detail.comment);
+        this.splice('comments', idx, 1);
+      }
+
+      _handleResponse(event) {
+        this.comments = event.detail.response;
+      }
+    }
+
+    window.customElements.define(Comments.is, Comments);
+  </script>
+</dom-module>

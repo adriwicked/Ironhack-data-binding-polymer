@@ -1,0 +1,157 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="./ih-food-item.html">
+<link rel="import" href="./shared-styles.html">
+
+<dom-module id="ih-food-list">
+  <template>
+    <style include="shared-styles">      
+      .food-list {
+        width: 45%;
+        float: left;
+      }
+
+      .ingredients-list {
+        width: 45%;
+        float: right;
+      }
+    </style>
+    
+    <iron-ajax
+      id="xhr"
+      auto
+      url="../../shared/foods.json"
+      handle-as="json"
+      on-response="_handleResponse"></iron-ajax>
+
+    <div class="card">
+      <paper-input label="Search" value="{{search}}"></paper-input>
+      
+      <paper-button id="newfoodbtn" raised on-tap="_newFoodPressed">Add new food</paper-button>      
+      <div class="new-food-form" hidden$="[[formHidden]]">
+        <iron-form id="myform">
+          <form>
+            <paper-input                 
+              required
+              error-message="This field is required"
+              id="name"
+              label="Name"></paper-input>
+            <paper-input                 
+              required
+              error-message="This field is required"
+              type="number"
+              id="calories"
+              label="Calories"></paper-input>
+            <paper-input                 
+              required
+              error-message="This field is required"
+              id="image"
+              label="Image URL"></paper-input>
+            <paper-input                 
+              required
+              error-message="This field is required" 
+              type="number"
+              id="quantity"
+              label="Quantity"></paper-input>
+            <paper-button raised on-tap="_addFoodPressed">Add food</paper-button>
+          </form>
+        </iron-form>
+      </div>
+
+      <div class="food-ingredients-list">
+        <div class="food-list">
+          <template is="dom-repeat" items="{{foods}}" as="food" filter="{{_filterFoods(search)}}">
+            <ih-food-item info="[[food]]" on-add-ing="_addIngredient"></ih-food-item>
+          </template>
+        </div>
+        <div class="ingredients-list">
+          <template is="dom-repeat" items="{{ingredients}}" as="ingredient">
+            <h5>[[ingredient.name]] [[ingredient.calories]] - x[[ingredient.quantity]]</h5>
+          </template>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    class IhFoodList extends Polymer.Element {
+      static get is() { return "ih-food-list"; }
+      static get properties() { return {
+        foods: {
+          type: Array
+        },        
+
+        search: {
+          type: String
+        },
+
+        formHidden: {
+          type: Boolean,
+          value: true          
+        },
+
+        ingredients: {
+          type: Array,
+          value: () => []
+        }
+      }}            
+      
+      _handleResponse(e) {
+        this.foods = e.detail.response;                        
+      }
+
+      _filterFoods(search) {
+        if (!search) {          
+          return null;
+        } else {
+          return function(food) {             
+            return food.name.match(new RegExp(search, "i")); 
+          }
+        }
+      }
+
+      _addFoodPressed() {
+        let myform = this.$.myform;
+
+        if (myform.validate()) {
+          let food = {
+            name: this.$.name.value,
+            calories: this.$.calories.value,
+            image: this.$.image.value,
+            quantity: this.$.quantity.value
+          };                    
+          
+          this.push('foods', food);                        
+          myform.reset();          
+        }
+      }
+
+      _newFoodPressed() {
+        this.formHidden = !this.formHidden;
+      }
+
+      _addIngredient(e) {
+        let newIng = e.detail.ingredient;          
+
+        this.ingredients = this.ingredients.map((ing,index) => { 
+          if (ing.name === newIng.name) {            
+            this.set(`ingredients.${index}.quantity`, ing.quantity + 1);
+          }          
+
+          return ing;
+        });
+
+        if (!this.ingredients.some(ing => ing.name === newIng.name)) {
+          this.push('ingredients', newIng);
+        }        
+
+        console.log(this.ingredients);
+      }
+    }
+
+    window.customElements.define(IhFoodList.is, IhFoodList);
+  </script>
+</dom-module>

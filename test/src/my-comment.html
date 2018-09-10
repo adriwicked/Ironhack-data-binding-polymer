@@ -1,0 +1,37 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-comment">
+  <template >
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+    </style>
+    <div class="card" id="[[comment.id]]">
+      <h4>[[comment.email]]</h4>
+      <p>[[comment.body]]</p>
+      <button class="delete-button" on-click="_deleteButtonPressed">Delete comment</button>
+    </div>
+  </template>
+
+  <script>
+    class Comment extends Polymer.Element {
+      static get is() { return "my-comment"; }
+      static get properties() {
+        return {
+          comment: {
+            type: Object
+          }
+        }
+      }
+      
+      _deleteButtonPressed(e) {
+        let customEvent = new CustomEvent('custom-click', { detail: { comment: this.comment }, composed: true });
+        this.dispatchEvent(customEvent);
+      }
+    }
+  
+    window.customElements.define(Comment.is, Comment);
+  </script>
+</dom-module>

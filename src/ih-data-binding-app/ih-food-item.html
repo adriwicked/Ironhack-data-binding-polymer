@@ -1,0 +1,61 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="./shared-styles.html">
+
+<dom-module id="ih-food-item">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+  
+      img {
+        width: 8em;
+        display: inline-block;
+      }
+
+      h3 {
+        display: inline-block;
+      }
+
+      p {
+        display: inline-block;
+      }
+
+      .add-ing-btn {
+        float: right;
+      }
+    </style>
+    <div class="card">
+      <img src="[[info.image]]">
+      <h3>[[info.name]]</h3>
+      <p>[[info.calories]]</p>      
+      <paper-button class="add-ing-btn" raised on-tap="_newIngPressed">Add ingredient</paper-button>      
+    </div>
+  </template>
+
+  <script>
+    class IhFoodItem extends Polymer.Element {
+      static get is() { return "ih-food-item"; }
+      static get properties() { return {
+        info: {
+          type: Object,
+          value: {
+            name: "Default food",
+            calories: 400,
+            image: "https://i.imgur.com/eTmWoAN.png",
+            quantity: 0 
+          }
+        }
+      }}
+
+      _newIngPressed() {
+        this.dispatchEvent(new CustomEvent('add-ing', 
+          { detail: { ingredient: { name: this.info.name, calories: this.info.calories, quantity: 1 } }, 
+          bubbles: true, composed: true }));
+      }
+    }
+
+    window.customElements.define(IhFoodItem.is, IhFoodItem);
+  </script>
+</dom-module>

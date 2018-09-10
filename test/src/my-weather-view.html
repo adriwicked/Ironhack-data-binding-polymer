@@ -1,0 +1,76 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-weather-view">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+
+      iron-image {              
+        --iron-image-width: 20px;
+      }
+    </style>
+
+    <iron-ajax
+      auto
+      url="../data/weather-data.json"
+      handle-as="json"
+      on-response="_handleResponse"></iron-ajax>
+
+    <div class="card">
+      <iron-image 
+        id="weather-image" 
+        preload
+        fade
+        src=""></iron-image>
+
+      <h2>[[temperature]] Cº</h2>
+      <h4>[[location.city]], [[location.country]]</h4>
+    </div>
+  </template>
+
+  <script>
+    class WeatherWidget extends Polymer.Element {
+      static get is() { return 'my-weather-view'; }
+      static get properties() {
+        return {
+          weatherData: {
+            type: Object
+          },
+          temperature: {
+            type: Number
+          },
+          weatherState: {
+            type: String
+          },
+          location: {
+            type: Object
+          },
+        };
+      }
+
+      _handleResponse(event) {
+        this.weatherData = event.detail.response;
+        
+        this.location = {
+          city: this.weatherData.title,
+          country: this.weatherData.parent.title
+        }
+
+        this.temperature = ~~this.weatherData.consolidated_weather[2].the_temp;
+        this.weatherState = this.weatherData.consolidated_weather[2].weather_state_abbr;        
+        this.shadowRoot.querySelector('#weather-image').setAttribute('src', 
+        `https://www.metaweather.com/static/img/weather/${this.weatherState}.svg`);
+      }
+    }
+
+    window.customElements.define(WeatherWidget.is, WeatherWidget);
+  </script>
+</dom-module>
